@@ -1,0 +1,126 @@
+
+
+
+
+cat<<END> declus.tmp
+
+
+                  Parameters for DECLUS
+                  *********************
+
+START OF PARAMETERS:
+data.dat                    -file with data
+2   3   4   6               -  columns for X, Y, Z, and variable
+100     12e3                -  trimming limits
+declus.sum                  -file for summary output
+Data_4_NS.dat                  -file for output with data & weights
+1.0   1.0                   -Y and Z cell anisotropy (Ysize=size*Yanis)
+0                           -0=look for minimum declustered mean (1=max)
+100   1  15               -number of cell sizes, min size, max size
+5                           -number of origin offsets
+
+
+END
+
+
+
+cat<<END> scat.tmp
+
+
+
+                 Parameters for SCATPLT
+                  **********************
+
+START OF PARAMETERS:
+declus.sum                        -file with data
+1   2   0    0                    -  columns for X, Y, wt, third var.
+-1.0   1.0e21                     -  trimming limits
+scatplt.ps                        -file for Postscript output
+0.0     -100      0               -X min and max, (0=arith, 1=log)
+0.0     -20.0      0               -Y min and max, (0=arith, 1=log)
+1                                 -plot every nth data point
+1.0                               -bullet size: 0.1(sml)-1(reg)-10(big)
+0.0      2.0                      -limits for third variable gray scale
+Primary versus Secondary          -title
+
+
+END
+
+
+
+cat<<END> hist_01.tmp
+
+START OF PARAMETERS:
+Data_4_NS.dat                -file with data
+6   0                        -   columns for variable and weight
+100     15e3                 -  trimming limits
+001.ps                       -file for PostScript output
+0.0      15e3                -attribute minimum and maximum
+-1.0                         -frequency maximum (<0 for automatic)
+40                           -number of classes
+0                            -0=arithmetic, 1=log scaling
+0                            -0=frequency,  1=cumulative histogram
+0                            -   number of cum. quantiles (<0 for all)
+2                            -number of decimal places (<0 for auto.)
+Clustered Permeability Data               -title
+1.5                          -positioning of stats (L to R: -1 to 1)
+-1.1e21                      -reference value for box plot
+
+END
+
+
+cat<<END> hist_02.tmp
+
+START OF PARAMETERS:
+Data_4_NS.dat           -file with data
+6   7                        -   columns for variable and weight
+100     15e3                -  trimming limits
+002.ps                   -file for PostScript output
+0      15e3               -attribute minimum and maximum
+-1.0                         -frequency maximum (<0 for automatic)
+40                           -number of classes
+0                            -0=arithmetic, 1=log scaling
+0                            -0=frequency,  1=cumulative histogram
+0                            -   number of cum. quantiles (<0 for all)
+2                            -number of decimal places (<0 for auto.)
+Declustered Permeability Data               -title
+1.5                          -positioning of stats (L to R: -1 to 1)
+-1.1e21                      -reference value for box plot
+
+END
+
+
+
+
+cat<<END> plotem_01.tmp
+
+START OF PARAMETERS:
+Histograms.ps                     -output file
+1  2                          -number of plots in X and Y
+001.ps                    -first plot file
+002.ps                    -second plot file
+
+END
+
+
+
+
+########################################################################################
+
+
+
+# RUN TMP files
+
+
+declus declus.tmp
+scatplt scat.tmp
+
+histplt hist_01.tmp
+histplt hist_02.tmp
+plotem plotem_01.tmp
+
+
+# Detelete TMP files
+
+rm *.tmp
+rm 00*.ps

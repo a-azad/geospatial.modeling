@@ -1,0 +1,112 @@
+cat<<END> sim.tmp
+
+                  Parameters for SGSIM
+                  ********************
+
+START OF PARAMETERS:
+NS_Data.data                  -file with data
+2  3  4  6  7  0              -  columns for X,Y,Z,vr,wt,sec.var.
+100             12000              -  trimming limits
+1                             -transform the data (0=no, 1=yes)
+sgsim_perm.trn                -  file for output trans table
+0                             -  consider ref. dist (0=no, 1=yes)
+histsmth.out                  -  file with ref. dist distribution
+1  2                          -  columns for vr and wt
+0.0     12000                    -  zmin,zmax(tail extrapolation)
+1       0.0                   -  lower tail option, parameter
+1      12000                   -  upper tail option, parameter
+1                             -debugging level: 0,1,2,3
+sgsim_perm.dbg                -file for debugging output
+sgsim_perm.out                -file for simulation output
+100                           -number of realizations to generate
+100   .5       1              -nx,xmn,xsiz
+1    45.5     1               -ny,ymn,ysiz
+20    270.5    1              -nz,zmn,zsiz
+69069                         -random number seed
+0     4                       -min and max original data for sim
+20                             -number of simulated nodes to use
+1                             -assign data to nodes (0=no, 1=yes)
+1   3                        -multiple grid search (0=no, 1=yes),num
+0                             -maximum data per octant (0=not used)
+40   40    5                   -maximum search radii (hmax,hmin,vert)
+85   175    0               -angles for search ellipsoid
+51   51    11                -size of covariance lookup table
+0    0                       -ktype: 0=SK,1=OK,2=LVM,3=EXDR,4=COLC
+../data/ydata.dat             -  file with LVM, EXDR, or COLC variable
+4                             -  column for secondary variable
+4     0.2                     -nst, nugget effect
+1    .15       85   0     0     -it,cc,ang1,ang2,ang3
+              7   7    1     -a_hmax, a_hmin, a_vert
+1    .10       85   0     0     -it,cc,ang1,ang2,ang3
+              9   7    1     -a_hmax, a_hmin, a_vert
+1    .30       85   0     0     -it,cc,ang1,ang2,ang3
+              45   7    7     -a_hmax, a_hmin, a_vert
+1    .25      85   0     0     -it,cc,ang1,ang2,ang3
+              50   1e21    9     -a_hmax, a_hmin, a_vert
+              
+END
+
+
+
+
+cat<<END> histsim.tmp
+
+                  Parameters for HISTPLTSIM
+                  *************************
+
+START OF PARAMETERS:
+../data/lithology.dat        -file with lithology information
+0   7                        -   lithology column (0=not used), code
+NS_Data.data                 -file with data
+6   7                       -   columns for reference variable and weight
+sgsim_perm.out               -file with data
+1   0                        -   columns for variable and weight
+0     0                      -   data (0=simulation, 1=multi columns), numeric output
+1    99                      -   start and finish histograms (usually 1 and nreal)
+100  1   20                  -   nx, ny, nz
+0     12000                     -   trimming limits
+Histplotsim.ps               -file for PostScript output
+histpltsim_summary.out       -file for summary output (always used)
+histpltsim_numeric.out       -file for numeric output (used if flag set above)
+0      15000                    -attribute minimum and maximum
+-1.0                         -frequency maximum (<0 for automatic)
+50                           -number of classes
+0                            -0=arithmetic, 1=log scaling
+1                            -0=frequency, 1=cumulative histogram
+0                            -   number of cum. quantiles (<0 for all)
+2                            -number of decimal places (<0 for auto.)
+Simulated Data-Permeability      -title
+1.5                          -positioning of stats (L to R: -1 to 1)
+-1.1e21                      -reference value for box plot
+
+
+END
+
+
+
+
+
+
+
+
+
+
+
+sgsim sim.tmp
+histpltsim histsim.tmp
+
+
+Bash PLOT
+
+
+
+
+# Detelete TMP files
+
+rm *.tmp
+rm *.dbg
+rm 0000?.ps
+rm 00?.ps
+rm 00000?.ps 
+rm _QQ_*.ps
+#rm *.out

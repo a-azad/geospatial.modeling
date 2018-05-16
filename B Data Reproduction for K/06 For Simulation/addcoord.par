@@ -1,0 +1,10 @@
+                  Parameters for ADDCOORD
+                  ***********************
+
+START OF PARAMETERS:
+sgsim_perm.out                         -file with data
+sim_70.out                      -file for output
+70                                 -realization number
+100   .5       1              -nx,xmn,xsiz
+1    45.5     1               -ny,ymn,ysiz
+20    270.5    1              -nz,zmn,zsiz

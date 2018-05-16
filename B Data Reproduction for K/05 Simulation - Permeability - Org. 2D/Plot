@@ -1,0 +1,100 @@
+# (:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)(:)
+
+
+cat<<END>add.tmp
+
+                  Parameters for ADDCOORD
+                  ***********************
+
+START OF PARAMETERS:
+sgsim_perm.out                    -file with data
+real.tmp                          -file for output
+RN                                -realization number
+100    .5    1              -nx,xmn,xsiz
+1     45.5    1                -ny,ymn,ysiz
+20    270.5    1             -nz,zmn,zsiz
+
+
+END
+
+
+# ---------------------------------------------
+
+cat<<END> Sim_pixel_XZ.tmp
+
+
+
+                  Parameters for PIXELPLT
+                  ***********************
+
+START OF PARAMETERS:
+sgsim_perm.out                      -file with gridded data
+1                                  -  column number for variable
+0         1e21                       -  data trimming limits
+Pixel_RN                      -file with PostScript output
+RN                                -realization number
+100    .5    1     1         -nx,xmn,xsiz
+1     45.5    1     1          -ny,ymn,ysiz
+20    270.5    1     1        -nz,zmn,zsiz
+2                                -slice orientation: 1=XY, 2=XZ, 3=YZ
+1                                -slice number     
+Real. #RN               -Title
+East                             -X label
+Elevation                            -Y label
+0                                -0=arithmetic, 1=log scaling
+1                                -0=gray scale, 1=color scale
+0                                -0=continuous, 1=categorical
+0    10000  2000                        -continuous:  min, max, increm.
+4                                -categorical: number of categories
+
+END
+
+
+
+# ---------------------------------------------
+
+XI=10
+XJ=100
+
+while [ $XI -le $XJ ]
+do
+    
+    sed -e "s/RN/$XI/g" add.tmp>addtmp.tmp; addcoord addtmp.tmp
+    sed -e "s/RN/$XI/g" Sim_pixel_XZ.tmp>Pixeltmp.tmp  ; pixelplt Pixeltmp.tmp
+    XI=$((XI+10))
+    
+ done
+
+
+# ---------------------------------------------
+
+
+
+
+cat<<END> pl03.tmp
+
+                  Parameters for PLOTEM
+                  *********************
+
+START OF PARAMETERS:
+Perm_Sim_Pixel.ps                     -output file
+2  5                                  -number of plots in X and Y
+Pixel_10
+Pixel_20
+Pixel_30
+Pixel_40
+Pixel_50
+Pixel_60
+Pixel_70
+Pixel_80
+Pixel_90
+Pixel_100
+
+
+
+END
+
+
+plotem pl03.tmp
+
+rm Pixel_*

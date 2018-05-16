@@ -1,0 +1,153 @@
+# TMP File Making
+
+
+cat<<END> locmap.tmp
+                  
+START OF PARAMETERS:
+data.dat             -file with data
+2   3   0                       -   columns for X, Y, variable
+-1.0    1.0e21                  -   trimming limits
+Well_Locaions.ps                       -file for PostScript output
+0.0     100.                     -xmn,xmx
+35     55.                     -ymn,ymx
+0                               -0=data values, 1=cross validation
+1                               -0=arithmetic,  1=log scaling
+1                               -0=gray scale,  1=color scale
+0                                 -0=no labels,   1=label each location
+0.01   10.0    1.               -gray/color scale: min, max, increm
+0.5                             -label size: 0.1(sml)-1(reg)-10(big)
+Location of Wells - Plan View     -Title
+
+END
+
+
+cat<<END> hist_poro.tmp
+
+START OF PARAMETERS:
+data.dat          -file with data
+5   0                        -   columns for variable and weight
+1     1.0e21              -   trimming limits
+001.ps                   -file for PostScript output
+0.0      40               -attribute minimum and maximum
+-1.0                         -frequency maximum (<0 for automatic)
+50                           -number of classes
+0                            -0=arithmetic, 1=log scaling
+0                            -0=frequency,  1=cumulative histogram
+0                            -   number of cum. quantiles (<0 for all)
+2                            -number of decimal places (<0 for auto.)
+Clustered Porosity Data               -title
+1.5                          -positioning of stats (L to R: -1 to 1)
+-1.1e21                      -reference value for box plot
+
+END
+
+
+cat<<END> hist_perm.tmp
+
+START OF PARAMETERS:
+data.dat          -file with data
+6   0                        -   columns for variable and weight
+0        20000              -   trimming limits
+002.ps                   -file for PostScript output
+0.0      20000               -attribute minimum and maximum
+-1.0                         -frequency maximum (<0 for automatic)
+50                           -number of classes
+0                            -0=arithmetic, 1=log scaling
+0                            -0=frequency,  1=cumulative histogram
+0                            -   number of cum. quantiles (<0 for all)
+2                            -number of decimal places (<0 for auto.)
+Clustered Permeability Data               -title
+1.5                          -positioning of stats (L to R: -1 to 1)
+-1.1e21                      -reference value for box plot
+
+END
+
+
+cat<<END> scater_poro.tmp
+
+START OF PARAMETERS:
+data.dat                          -file with data
+5  4   0    0                   -  columns for X, Y, wt, third var.
+1  1.0e21                     -  trimming limits
+003.ps                        -file for Postscript output
+0.0     40         0               -X min and max, (0=arith, 1=log)
+265     290      0               -Y min and max, (0=arith, 1=log)
+1                                 -plot every nth data point
+.5                               -bullet size: 0.1(sml)-1(reg)-10(big)
+0.0      2.0                      -limits for third variable gray scale
+Porosity           -title
+
+END
+
+
+cat<<END> scater_perm.tmp
+
+START OF PARAMETERS:
+data.dat                          -file with data
+6  4   0    0                   -  columns for X, Y, wt, third var.
+0  20000                     -  trimming limits
+004.ps                        -file for Postscript output
+0.0     20000         0               -X min and max, (0=arith, 1=log)
+265     290      0               -Y min and max, (0=arith, 1=log)
+1                                 -plot every nth data point
+.5                               -bullet size: 0.1(sml)-1(reg)-10(big)
+0.0      2.0                      -limits for third variable gray scale
+Permeability           -title
+
+END
+
+
+
+
+
+cat<<END> plotem_01.tmp
+
+START OF PARAMETERS:
+Histograms.ps                     -output file
+1  2                          -number of plots in X and Y
+001.ps                    -first plot file
+002.ps                    -second plot file
+
+END
+
+
+cat<<END> plotem_02.tmp
+
+START OF PARAMETERS:
+Scats-Depth.ps                     -output file
+1  2                          -number of plots in X and Y
+003.ps                    -first plot file
+004.ps                    -second plot file
+
+END
+
+
+
+
+
+########################################################################################
+
+
+
+# RUN TMP files
+
+locmap locmap.tmp
+histplt hist_poro.tmp
+histplt hist_perm.tmp
+
+scatplt scater_poro.tmp
+scatplt scater_perm.tmp
+
+
+plotem plotem_01.tmp
+plotem plotem_02.tmp
+
+
+
+
+
+# Detelete TMP files
+
+rm *.tmp
+rm *.out
+rm 00*.ps

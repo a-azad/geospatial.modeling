@@ -1,0 +1,273 @@
+
+cat<<END> ns_perm.tmp
+
+                  Parameters for NSCORE
+                  *********************
+
+START OF PARAMETERS:
+Data_4_NS.dat               -file with data
+6   7                       -  columns for variable and weight
+100    15000                -  trimming limits
+0                           -1=transform according to specified ref. dist.
+Data01.out                  -  file with reference dist.
+1   2                       -  columns for variable and weight
+NS_Data.data                -file for output
+nscore_perm.trn             -file for output transformation table
+
+
+END
+
+
+
+cat<<END> hist_perm.tmp
+
+START OF PARAMETERS:
+NS_Data.data          -file with data
+8   7                       -   columns for variable and weight
+-10        10              -   trimming limits
+Hist.ps                   -file for PostScript output
+-5      5              -attribute minimum and maximum
+-1.0                         -frequency maximum (<0 for automatic)
+50                           -number of classes
+0                            -0=arithmetic, 1=log scaling
+0                            -0=frequency,  1=cumulative histogram
+0                            -   number of cum. quantiles (<0 for all)
+2                            -number of decimal places (<0 for auto.)
+NS Permeability Data               -title
+1.5                          -positioning of stats (L to R: -1 to 1)
+-1.1e21                      -reference value for box plot
+
+END
+
+
+
+
+
+##########Permeability######################################################################################
+
+
+cat<<END>gamv_H_min_perm.tmp	
+
+START OF PARAMETERS:
+NS_Data.data                          -file with data
+2   3   4                         -   columns for X, Y, Z coordinates
+1   8                             -   number of variables,col numbers
+-5     5                      -   trimming limits
+gamv_H_min_perm.out                          -file for variogram output
+4                               -number of lags
+10                               -lag separation distance
+10                                -lag tolerance
+1                                -number of directions
+85 15  20  0   5  5               -azm,atol,bandh,dip,dtol,bandv
+0                                 -standardize sills? (0=no, 1=yes)
+1                                 -number of variograms
+1   1   1                         -tail var., head var., variogram type
+
+
+type 1 = traditional semivariogram
+     2 = traditional cross semivariogram
+     3 = covariance
+     4 = correlogram
+     5 = general relative semivariogram
+     6 = pairwise relative semivariogram
+     7 = semivariogram of logarithms
+     8 = semimadogram
+     9 = indicator semivariogram - continuous
+     10= indicator semivariogram - categorical
+
+END
+
+
+
+cat<<END>gamv_H_max_perm.tmp	
+
+START OF PARAMETERS:
+NS_Data.data                          -file with data
+2   3   4                         -   columns for X, Y, Z coordinates
+1   8                             -   number of variables,col numbers
+-5     5                      -   trimming limits
+gamv_H_max_perm.out                          -file for variogram output
+8                                -number of lags
+10                              -lag separation distance
+10                                -lag tolerance
+1                                -number of directions
+175   20   20   1   5  5               -azm,atol,bandh,dip,dtol,bandv
+0                                 -standardize sills? (0=no, 1=yes)
+1                                 -number of variograms
+1   1   1                         -tail var., head var., variogram type
+
+
+type 1 = traditional semivariogram
+     2 = traditional cross semivariogram
+     3 = covariance
+     4 = correlogram
+     5 = general relative semivariogram
+     6 = pairwise relative semivariogram
+     7 = semivariogram of logarithms
+     8 = semimadogram
+     9 = indicator semivariogram - continuous
+     10= indicator semivariogram - categorical
+
+END
+
+
+
+
+cat<<END>gamv_V_perm.tmp	
+
+START OF PARAMETERS:
+NS_Data.data                         -file with data
+2   3   4                         -   columns for X, Y, Z coordinates
+1   8                           -   number of variables,col numbers
+-10     10                -   trimming limits
+gamv_V_perm.out                          -file for variogram output
+8                                -number of lags
+1                                -lag separation distance
+1                                -lag tolerance
+1                                -number of directions
+0   1  1  90   5  5               -azm,atol,bandh,dip,dtol,bandv
+0                                 -standardize sills? (0=no, 1=yes)
+1                                 -number of variograms
+1   1   1                         -tail var., head var., variogram type
+
+
+type 1 = traditional semivariogram
+     2 = traditional cross semivariogram
+     3 = covariance
+     4 = correlogram
+     5 = general relative semivariogram
+     6 = pairwise relative semivariogram
+     7 = semivariogram of logarithms
+     8 = semimadogram
+     9 = indicator semivariogram - continuous
+     10= indicator semivariogram - categorical
+
+END
+
+
+cat<<END>Vmodel_perm.tmp	
+
+
+START OF PARAMETERS:
+Variography_perm.out                   -file for variogram output
+3   600                       -number of directions and lags
+85   0.0    .1               -azm, dip, lag distance
+175    0.0    .1               -azm, dip, lag distance
+0     90     .1               -azm, dip, lag distance
+3     .2                     -nst, nugget effect
+1    .3       85   0     0     -it,cc,ang1,ang2,ang3
+              50   15    1.5     -a_hmax, a_hmin, a_vert
+1    .3       85   0     0     -it,cc,ang1,ang2,ang3
+              50   18    4     -a_hmax, a_hmin, a_vert
+1    .2       85   0     0     -it,cc,ang1,ang2,ang3
+              40   1e200    5     -a_hmax, a_hmin, a_vert
+
+END
+
+
+
+
+cat<<END>v1.tmp	
+               
+START OF PARAMETERS:
+01.ps                          -file for PostScript output
+1                                      -number of variograms to plot
+0.0    60                             -distance  limits (from data if max<min)
+0.0    -1.2                             -variogram limits (from data if max<min)
+1     716.1                              -plot sill (0=no,1=yes), sill value)
+Porosity                                -Title for variogram
+gamv.out                              -1 file with variogram data
+1    0   1   0    10                      -  variogram #, dash #, pts?, line?, color
+
+END
+
+
+cat<<END>v2.tmp	
+               
+START OF PARAMETERS:
+02.ps                          -file for PostScript output
+1                                      -number of variograms to plot
+0.0    60                             -distance  limits (from data if max<min)
+0.0    -1.2                             -variogram limits (from data if max<min)
+1     6.8e6                              -plot sill (0=no,1=yes), sill value)
+Permeability                                -Title for variogram
+gamv.out                              -1 file with variogram data
+1    0   1   0    4                      -  variogram #, dash #, pts?, line?, color
+
+END
+
+
+cat<<END>v3.tmp	
+               
+START OF PARAMETERS:
+03.ps                          -file for PostScript output
+1                                      -number of variograms to plot
+0.0    60                             -distance  limits (from data if max<min)
+0.0    -1.2                             -variogram limits (from data if max<min)
+0        0                              -plot sill (0=no,1=yes), sill value)
+Porosity-Permeability                                -Title for variogram
+gamv.out                              -1 file with variogram data
+1    0   1   0    12                      -  variogram #, dash #, pts?, line?, color
+
+END
+
+
+
+cat<<END> plotem_03.tmp
+
+START OF PARAMETERS:
+NS_Variograms_Perm.ps                     -output file
+1  3                          -number of plots in X and Y
+00_PeV_01.ps
+00_PeV_02.ps
+00_PeV_03.ps
+
+
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# RUN TMP files
+
+#nscore ns_perm.tmp
+
+#histplt hist_perm.tmp
+
+
+gamv gamv_H_min_perm.tmp
+gamv gamv_H_max_perm.tmp
+gamv gamv_V_perm.tmp
+Vmodel Vmodel_perm.tmp
+
+vargplt varg_plt_perm_01.tmp
+vargplt varg_plt_perm_02.tmp
+vargplt varg_plt_perm_03.tmp
+
+
+plotem plotem_03.tmp
+
+
+
+# Detelete TMP files
+
+rm *.tmp
+rm *.out
+rm 00*.ps
+#rm *.trn
